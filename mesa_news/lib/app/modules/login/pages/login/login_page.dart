@@ -20,6 +20,10 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
     Modular.link.pushNamed(Routes.EMAIL_LOGIN);
   }
 
+  void goToSignupLogin() {
+    Modular.link.pushNamed(Routes.SIGNUP_LOGIN);
+  }
+
   @override
   Widget build(_) {
     return Scaffold(
@@ -41,7 +45,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
               const SizedBox(width: 2),
               TextButton(
-                  onPressed: () {},
+                  onPressed: goToSignupLogin,
                   style: ButtonStyle(visualDensity: VisualDensity.compact),
                   child: const Text("Cadastrar", style: TextStyle(fontSize: 14)))
             ]),

@@ -1,9 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mesa_news/app/shared/shared_preferences/get_storages.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+part 'custom_dio.g.dart';
+
+@Injectable()
 class CustomDio extends DioForNative {
-  CustomDio() {
+  final GetStorages _storages;
+
+  CustomDio(this._storages) {
     options = BaseOptions(
       baseUrl: "https://mesa-news-api.herokuapp.com/",
       connectTimeout: 60000,
@@ -19,8 +26,10 @@ class CustomDio extends DioForNative {
   }
 
   _onRequest(RequestOptions options) async {
-    //String token = '$TOKEN';
-    //options.headers['X-WSSE'] = '$token';
+    String token = _storages.token;
+    if (token.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $token';
+    }
   }
 
   _onError(DioError e) {

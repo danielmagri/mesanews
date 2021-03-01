@@ -5,32 +5,39 @@ import 'package:mesa_news/app/shared/model/generic/result_state_model.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-part 'email_controller.g.dart';
+part 'signup_controller.g.dart';
 
 @Injectable()
-class EmailController = _EmailControllerBase with _$EmailController;
+class SignupController = _SignupControllerBase with _$SignupController;
 
-abstract class _EmailControllerBase extends Disposable with Store {
+abstract class _SignupControllerBase extends Disposable with Store {
   final LoginRepository _repository;
 
-  _EmailControllerBase(this._repository);
+  _SignupControllerBase(this._repository);
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController birthdayController = TextEditingController();
 
-  final ResultState<TokenModel> signinState = ResultState();
+  final ResultState<TokenModel> signupState = ResultState();
 
-  void signin() async {
+  void signup() async {
     if (formKey.currentState.validate()) {
-      signinState.makeRequest(_repository.signin(emailController.text, passwordController.text));
+      signupState.makeRequest(_repository.signup(
+          nameController.text, emailController.text, passwordController.text, birthdayController.text));
     }
   }
 
   @override
   void dispose() {
+    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
+    birthdayController.dispose();
   }
 }

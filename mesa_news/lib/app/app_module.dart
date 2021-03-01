@@ -1,4 +1,6 @@
+import 'package:mesa_news/app/modules/home/home_module.dart';
 import 'package:mesa_news/app/modules/login/login_module.dart';
+import 'package:mesa_news/app/shared/constant/routes/routes.dart';
 import 'package:mesa_news/app/shared/dio/custom_dio.dart';
 import 'package:mesa_news/app/shared/shared_preferences/get_storages.dart';
 
@@ -10,14 +12,15 @@ import 'package:mesa_news/app/app_widget.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
-        Bind<CustomDio>((i) => CustomDio()),
-        $AppController,
         $GetStorages,
+        $CustomDio,
+        $AppController,
       ];
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, module: LoginModule()),
+        ModularRouter(Modular.initialRoute, module: LoginModule(), transition: TransitionType.fadeIn),
+        ModularRouter(Routes.HOME, module: HomeModule(), transition: TransitionType.fadeIn),
       ];
 
   @override

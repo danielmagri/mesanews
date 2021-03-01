@@ -6,11 +6,11 @@ part 'get_storages.g.dart';
 
 @Injectable()
 class GetStorages extends GetStoragesHandler {
-  // Example
-  String get example => getStorageString(GetStorageKeys.EXAMPLE) ?? "";
-  set example(String value) => setStorageString(GetStorageKeys.EXAMPLE, value);
+  // Token
+  String get token => getStorageString(GetStorageKeys.TOKEN) ?? "";
+  set token(String value) => setStorageString(GetStorageKeys.TOKEN, value);
 }
 
 class GetStorageKeys {
-  static const EXAMPLE = "example";
+  static const TOKEN = "token";
 }
