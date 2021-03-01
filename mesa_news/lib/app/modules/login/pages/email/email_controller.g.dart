@@ -7,7 +7,7 @@ part of 'email_controller.dart';
 // **************************************************************************
 
 final $EmailController = BindInject(
-  (i) => EmailController(),
+  (i) => EmailController(i<LoginRepository>()),
   singleton: true,
   lazy: true,
 );

@@ -5,14 +5,13 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class CustomDio extends DioForNative {
   CustomDio() {
     options = BaseOptions(
-      baseUrl: "",
-      connectTimeout: 120000,
-      receiveTimeout: 120000,
+      baseUrl: "https://mesa-news-api.herokuapp.com/",
+      connectTimeout: 60000,
+      receiveTimeout: 60000,
     );
     interceptors.add(
       InterceptorsWrapper(
         onRequest: _onRequest,
-        onResponse: _onResponse,
         onError: _onError,
       ),
     );
@@ -22,12 +21,6 @@ class CustomDio extends DioForNative {
   _onRequest(RequestOptions options) async {
     //String token = '$TOKEN';
     //options.headers['X-WSSE'] = '$token';
-  }
-
-  _onResponse(Response e) {
-    /*print('######### Response Log');
-    print(e.data);
-    print('######### Response Log');*/
   }
 
   _onError(DioError e) {

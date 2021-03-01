@@ -7,7 +7,7 @@ part of 'login_repository.dart';
 // **************************************************************************
 
 final $LoginRepository = BindInject(
-  (i) => LoginRepository(i<DioForNative>()),
+  (i) => LoginRepository(i<CustomDio>()),
   singleton: true,
   lazy: true,
 );

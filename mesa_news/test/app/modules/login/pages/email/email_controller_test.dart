@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mesa_news/app/modules/login/pages/email/email_controller.dart';
 import 'package:mesa_news/app/modules/login/login_module.dart';
 
 void main() {

@@ -1,4 +1,5 @@
 import 'package:mesa_news/app/modules/login/login_module.dart';
+import 'package:mesa_news/app/shared/dio/custom_dio.dart';
 import 'package:mesa_news/app/shared/shared_preferences/get_storages.dart';
 
 import 'app_controller.dart';
@@ -9,6 +10,7 @@ import 'package:mesa_news/app/app_widget.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind<CustomDio>((i) => CustomDio()),
         $AppController,
         $GetStorages,
       ];

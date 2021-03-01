@@ -28,12 +28,6 @@ class CustomElevatedButton extends StatelessWidget {
         overlayColor = Colors.white24,
         super(key: key);
 
-  CustomElevatedButton.facebook({Key key, @required this.text, this.onTap})
-      : textColor = AppColors.FACEBOOK_COLOR,
-        background = Colors.white,
-        overlayColor = AppColors.FACEBOOK_COLOR.withAlpha(100),
-        super(key: key);
-
   @override
   Widget build(_) {
     return Container(

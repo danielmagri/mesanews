@@ -4,9 +4,10 @@ import 'package:mesa_news/app/shared/utils/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextFieldInputType inputType;
+  final TextEditingController controller;
   final bool hasNext;
 
-  const CustomTextField({Key key, @required this.inputType, this.hasNext = false}) : super(key: key);
+  const CustomTextField({Key key, @required this.inputType, this.controller, this.hasNext = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: TextFormField(
+              controller: controller,
               keyboardType: inputType.keyboardType,
               obscureText: inputType.isObscure,
               validator: inputType.validator,

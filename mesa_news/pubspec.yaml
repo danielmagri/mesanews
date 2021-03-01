@@ -40,6 +40,7 @@ dependencies:
   flutter_modular: ^2.0.1
   get_storage: ^1.4.0
   carousel_slider: ^2.3.1
+  fluttertoast: ^7.1.6
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -4,7 +4,6 @@ import 'package:mesa_news/app/shared/constant/assets/images.dart';
 import 'package:mesa_news/app/shared/constant/routes/routes.dart';
 import 'package:mesa_news/app/shared/utils/app_colors.dart';
 import 'package:mesa_news/app/shared/widget/custom_outlined_button.dart';
-import 'package:mesa_news/app/shared/widget/custom_elevated_button.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -34,12 +33,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
           const Text("NEWS",
               style: TextStyle(color: Colors.white, fontSize: 19, fontWeight: FontWeight.w900, letterSpacing: 25)),
           Spacer(),
-          CustomElevatedButton.facebook(
-              text: "Entrar com facebook",
-              onTap: () {
-                //TODO: login with facebook
-              }),
-          const SizedBox(height: 16),
           CustomOutlinedButton.white(text: "Entrar com e-mail", onTap: goToEmailLogin),
           Padding(
             padding: const EdgeInsets.only(top: 36, bottom: 28),
