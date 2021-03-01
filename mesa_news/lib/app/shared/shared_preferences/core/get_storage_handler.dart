@@ -5,7 +5,7 @@ abstract class GetStoragesHandler {
   GetStorage _prefs;
 
   GetStoragesHandler() {
-    _prefs = GetStorage('shared');
+    _prefs = GetStorage();
   }
 
   @protected

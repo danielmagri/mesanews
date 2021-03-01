@@ -1,3 +1,6 @@
+import 'package:mesa_news/app/splash/splash_page.dart';
+
+import 'splash/splash_controller.dart';
 import 'package:mesa_news/app/modules/home/home_module.dart';
 import 'package:mesa_news/app/modules/login/login_module.dart';
 import 'package:mesa_news/app/shared/constant/routes/routes.dart';
@@ -15,11 +18,13 @@ class AppModule extends MainModule {
         $GetStorages,
         $CustomDio,
         $AppController,
+        $SplashController,
       ];
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, module: LoginModule(), transition: TransitionType.fadeIn),
+        ModularRouter(Modular.initialRoute, child: (_, args) => SplashPage(), transition: TransitionType.fadeIn),
+        ModularRouter(Routes.LOGIN, module: LoginModule(), transition: TransitionType.fadeIn),
         ModularRouter(Routes.HOME, module: HomeModule(), transition: TransitionType.fadeIn),
       ];
 
