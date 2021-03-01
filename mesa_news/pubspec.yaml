@@ -27,8 +27,6 @@ scripts:
     mobx_watch: $clean & $get & $runner watch
     mobx_build_clean: $clean & $get & $runner build --delete-conflicting-outputs
 
-
-
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
@@ -36,9 +34,12 @@ dependencies:
   flutter:
     sdk: flutter
   dio: ^3.0.10
+  pretty_dio_logger: ^1.1.1
   flutter_mobx: ^1.1.0+2
   mobx: ^1.2.1+4
   flutter_modular: ^2.0.1
+  get_storage: ^1.4.0
+  carousel_slider: ^2.3.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -62,6 +63,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - lib/assets/images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
