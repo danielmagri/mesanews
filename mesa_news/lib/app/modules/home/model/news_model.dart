@@ -18,6 +18,25 @@ class NewsModel {
   final String url;
   final String imageUrl;
 
+  String get publishedDateText {
+    try {
+      var date = DateTime.parse(publishedAt);
+      var difference = DateTime.now().difference(date);
+
+      if (difference.inMinutes < 60) {
+        return "${difference.inMinutes} minutos atrás";
+      } else if (difference.inHours < 24) {
+        return "${difference.inHours} horas atrás";
+      } else if (difference.inDays < 7) {
+        return "${difference.inDays} dias atrás";
+      } else {
+        return "${date.day.toString().padLeft(2,'0')}/${date.month.toString().padLeft(2,'0')}/${date.year.toString()}";
+      }
+    } catch (_) {
+      return "erro";
+    }
+  }
+
   factory NewsModel.fromJson(Map<String, dynamic> json) => NewsModel(
         title: json['title'] ?? "",
         description: json['description'] ?? "",

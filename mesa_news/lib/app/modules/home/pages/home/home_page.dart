@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mesa_news/app/modules/home/model/news_model.dart';
 import 'package:mesa_news/app/modules/home/widgets/highlights_item.dart';
 import 'package:mesa_news/app/modules/home/widgets/news_item.dart';
 import 'package:mesa_news/app/shared/base/base_modular_state.dart';
@@ -29,6 +30,10 @@ class _HomePageState extends BaseModularState<HomePage, HomeController> {
   void logout() {
     controller.logout();
     Modular.to.pushReplacementNamed(Routes.LOGIN);
+  }
+
+  void goToDetails(NewsModel news) {
+    Modular.to.pushNamed(Routes.DETAILS, arguments: news);
   }
 
   @override
@@ -71,7 +76,10 @@ class _HomePageState extends BaseModularState<HomePage, HomeController> {
                       ),
                       (data) => CarouselSlider.builder(
                         itemCount: data.length,
-                        itemBuilder: (context, i) => HighlightsItem(data: data[i]),
+                        itemBuilder: (context, i) => HighlightsItem(
+                          data: data[i],
+                          onTap: () => goToDetails(data[i]),
+                        ),
                         options: CarouselOptions(
                           initialPage: 0,
                           viewportFraction: 0.9,
@@ -95,9 +103,9 @@ class _HomePageState extends BaseModularState<HomePage, HomeController> {
                 itemBuilder: (context, index) => controller.newsState.widgetBuilder(
                     index: index,
                     shimmerItem: () => NewsItemShimmer(),
-                    item: (i) => NewsItem(
-                          data: controller.newsState.data[i],
-                          onTap: () {},
+                    item: (data) => NewsItem(
+                          data: data,
+                          onTap: () => goToDetails(data),
                         )),
               );
             }),

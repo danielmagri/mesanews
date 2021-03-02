@@ -1,3 +1,4 @@
+import 'package:mesa_news/app/modules/details/details_module.dart';
 import 'package:mesa_news/app/splash/splash_page.dart';
 
 import 'splash/splash_controller.dart';
@@ -26,6 +27,7 @@ class AppModule extends MainModule {
         ModularRouter(Modular.initialRoute, child: (_, args) => SplashPage(), transition: TransitionType.fadeIn),
         ModularRouter(Routes.LOGIN, module: LoginModule(), transition: TransitionType.fadeIn),
         ModularRouter(Routes.HOME, module: HomeModule(), transition: TransitionType.fadeIn),
+        ModularRouter(Routes.DETAILS, module: DetailsModule(), transition: TransitionType.downToUp),
       ];
 
   @override

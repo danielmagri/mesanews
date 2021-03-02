@@ -1,6 +1,4 @@
-
 abstract class Routes {
-
   // Home
   static const String HOME = "/home";
 
@@ -8,4 +6,7 @@ abstract class Routes {
   static const String LOGIN = "/login";
   static const String EMAIL_LOGIN = "/email_login";
   static const String SIGNUP_LOGIN = "/signup_login";
+
+  // Details
+  static const String DETAILS = "/details";
 }

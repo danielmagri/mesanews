@@ -1,22 +1,4 @@
-import 'package:flutter/material.dart'
-    show
-        BorderRadius,
-        BoxFit,
-        ClipRRect,
-        Colors,
-        Column,
-        CrossAxisAlignment,
-        EdgeInsets,
-        FontWeight,
-        InkWell,
-        Key,
-        Padding,
-        SizedBox,
-        StatelessWidget,
-        Text,
-        TextOverflow,
-        TextStyle,
-        Widget;
+import 'package:flutter/material.dart';
 import 'package:mesa_news/app/modules/home/model/news_model.dart';
 import 'package:mesa_news/app/shared/widget/image_loadable.dart';
 import 'package:mesa_news/app/shared/widget/skeleton.dart';
@@ -67,6 +49,12 @@ class NewsItem extends StatelessWidget {
             ClipRRect(
                 borderRadius: BorderRadius.circular(3),
                 child: ImageLoadable(url: data.imageUrl, width: double.maxFinite, height: 145, boxFit: BoxFit.cover)),
+            const SizedBox(height: 12),
+            Row(children: [
+              const Spacer(),
+              Text(data.publishedDateText,
+                  style: const TextStyle(color: Colors.black, fontSize: 13, fontStyle: FontStyle.italic, fontWeight: FontWeight.w400)),
+            ]),
             const SizedBox(height: 12),
             Text(
               data.title,

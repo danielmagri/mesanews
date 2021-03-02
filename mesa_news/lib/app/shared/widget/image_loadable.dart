@@ -15,7 +15,7 @@ class ImageLoadable extends StatelessWidget {
   Widget build(BuildContext context) {
     return url == null || url.isEmpty
         ? Container(
-            color: AppColors.ACCENT_COLOR,
+            color: AppColors.PRIMARY_COLOR,
             width: width,
             height: height,
             alignment: Alignment.center,
@@ -27,7 +27,7 @@ class ImageLoadable extends StatelessWidget {
             height: height,
             fit: boxFit,
             errorWidget: (_, __, ___) => Container(
-              color: AppColors.ACCENT_COLOR,
+              color: AppColors.PRIMARY_COLOR,
               width: width,
               height: height,
               alignment: Alignment.center,

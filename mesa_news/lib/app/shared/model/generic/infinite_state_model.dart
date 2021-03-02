@@ -8,7 +8,7 @@ part 'infinite_state_model.g.dart';
 
 typedef _Request<T> = Future<Result<Tuple2<int, List<T>>>> Function(int currentPage, int perPage);
 typedef _ShimmerItemWidget = Widget Function();
-typedef _ItemWidget = Widget Function(int index);
+typedef _ItemWidget<T> = Widget Function(T data);
 
 class InfiniteState<T> = _InfiniteStateBase<T> with _$InfiniteState;
 
@@ -65,11 +65,11 @@ abstract class _InfiniteStateBase<T> with Store {
     return length;
   }
 
-  Widget widgetBuilder({int index, _ShimmerItemWidget shimmerItem, _ItemWidget item}) {
+  Widget widgetBuilder({int index, _ShimmerItemWidget shimmerItem, _ItemWidget<T> item}) {
     if (index >= data.length || data.isEmpty) {
       return shimmerItem();
     } else {
-      return item(index);
+      return item(data[index]);
     }
   }
 

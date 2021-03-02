@@ -1,25 +1,5 @@
 import 'package:flutter/material.dart'
-    show
-        BorderRadius,
-        BoxFit,
-        ClipRRect,
-        Colors,
-        Column,
-        CrossAxisAlignment,
-        EdgeInsets,
-        Expanded,
-        FontWeight,
-        GestureDetector,
-        Key,
-        MainAxisAlignment,
-        Padding,
-        Row,
-        SizedBox,
-        StatelessWidget,
-        Text,
-        TextOverflow,
-        TextStyle,
-        Widget;
+    show BorderRadius, BoxFit, ClipRRect, Colors, Column, CrossAxisAlignment, EdgeInsets, Expanded, FontStyle, FontWeight, GestureDetector, Key, MainAxisAlignment, Padding, Row, SizedBox, Spacer, StatelessWidget, Text, TextOverflow, TextStyle, Widget;
 import 'package:mesa_news/app/modules/home/model/news_model.dart';
 import 'package:mesa_news/app/shared/widget/image_loadable.dart';
 import 'package:mesa_news/app/shared/widget/skeleton.dart';
@@ -77,6 +57,13 @@ class HighlightsItem extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
                 ),
+                const Spacer(),
+                Row(children: [
+                  Text(data.publishedDateText,
+                      style: const TextStyle(
+                          color: Colors.black, fontSize: 13, fontStyle: FontStyle.italic, fontWeight: FontWeight.w400)),
+                ]),
+                const Spacer(),
               ]),
             ),
           ),
