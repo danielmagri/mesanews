@@ -18,6 +18,7 @@ class ImageLoadable extends StatelessWidget {
             color: AppColors.ACCENT_COLOR,
             width: width,
             height: height,
+            alignment: Alignment.center,
             child: const Text("Erro", style: TextStyle(color: Colors.white, fontSize: 15)),
           )
         : CachedNetworkImage(
@@ -25,6 +26,13 @@ class ImageLoadable extends StatelessWidget {
             width: width,
             height: height,
             fit: boxFit,
+            errorWidget: (_, __, ___) => Container(
+              color: AppColors.ACCENT_COLOR,
+              width: width,
+              height: height,
+              alignment: Alignment.center,
+              child: const Text("Erro", style: TextStyle(color: Colors.white, fontSize: 15)),
+            ),
             placeholder: (context, url) => Skeleton(width: width, height: height),
           );
   }

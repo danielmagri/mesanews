@@ -19,7 +19,6 @@ class CustomDio extends DioForNative {
     interceptors.add(
       InterceptorsWrapper(
         onRequest: _onRequest,
-        onError: _onError,
       ),
     );
     interceptors.add(PrettyDioLogger(requestHeader: true));
@@ -30,13 +29,5 @@ class CustomDio extends DioForNative {
     if (token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }
-  }
-
-  _onError(DioError e) {
-    if (e.response?.statusCode == 403 || e.response?.statusCode == 401) {
-      //unauthorized - go to logout
-      return e;
-    }
-    return e;
   }
 }

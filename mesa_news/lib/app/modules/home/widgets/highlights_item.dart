@@ -1,4 +1,25 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BorderRadius,
+        BoxFit,
+        ClipRRect,
+        Colors,
+        Column,
+        CrossAxisAlignment,
+        EdgeInsets,
+        Expanded,
+        FontWeight,
+        GestureDetector,
+        Key,
+        MainAxisAlignment,
+        Padding,
+        Row,
+        SizedBox,
+        StatelessWidget,
+        Text,
+        TextOverflow,
+        TextStyle,
+        Widget;
 import 'package:mesa_news/app/modules/home/model/news_model.dart';
 import 'package:mesa_news/app/shared/widget/image_loadable.dart';
 import 'package:mesa_news/app/shared/widget/skeleton.dart';
@@ -14,9 +35,7 @@ class HighlightsItemShimmer extends StatelessWidget {
         Expanded(
           child: SizedBox(
             height: 128,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               ContainerShimmer(width: double.maxFinite, height: 18),
               const SizedBox(height: 4),
               ContainerShimmer(width: double.maxFinite, height: 18),

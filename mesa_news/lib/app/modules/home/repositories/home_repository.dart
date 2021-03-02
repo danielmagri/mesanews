@@ -20,9 +20,10 @@ class HomeRepository extends Disposable {
         );
   }
 
-  Future<Result<BodyNewsModel>> news(int currentPage, {String publishedAt}) {
+  Future<Result<BodyNewsModel>> news(int currentPage, int perPage, {String publishedAt}) {
     return _client.get('${NewsApi.GET_NEWS}', queryParameters: {
       NewsApi.PARAM_NEWS_CURRENT_PAGE: currentPage,
+      NewsApi.PARAM_NEWS_PER_PAGE: perPage,
       if (publishedAt != null) NewsApi.PARAM_NEWS_PUBLISHED_AT: publishedAt,
     }).result((json) => BodyNewsModel.fromJson(json));
   }
