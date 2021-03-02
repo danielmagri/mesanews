@@ -22,7 +22,7 @@ class CustomDio extends DioForNative {
         onError: _onError,
       ),
     );
-    interceptors.add(PrettyDioLogger());
+    interceptors.add(PrettyDioLogger(requestHeader: true));
   }
 
   _onRequest(RequestOptions options) async {

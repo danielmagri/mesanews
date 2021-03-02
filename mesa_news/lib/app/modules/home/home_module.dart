@@ -1,11 +1,13 @@
-import 'home_controller.dart';
+import 'pages/home/home_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'home_page.dart';
+import 'pages/home/home_page.dart';
+import 'repositories/home_repository.dart';
 
 class HomeModule extends ChildModule {
   @override
   List<Bind> get binds => [
+        $HomeRepository,
         $HomeController,
       ];
 

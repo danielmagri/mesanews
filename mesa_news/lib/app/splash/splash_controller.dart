@@ -14,6 +14,7 @@ abstract class _SplashControllerBase with Store {
   _SplashControllerBase(this._storages);
 
   void start() async {
+    await Future.delayed(Duration(milliseconds: 300));
     if (_storages.token.isNotEmpty) {
       Modular.to.pushReplacementNamed(Routes.HOME);
     } else {

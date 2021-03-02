@@ -9,4 +9,8 @@ abstract class AppColors {
 
   // TextField
   static const TEXT_FIELD_BACKGROUND = Color(0xFFF0F0F0);
+
+  // Shimmer
+  static const SHIMMER_BASE = Color(0xFFE0E0E0);
+  static const SHIMMER_HIGHLIGHT = Color(0xFFF5F5F5);
 }
