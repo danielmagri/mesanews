@@ -1,4 +1,25 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BorderRadius,
+        BoxFit,
+        ClipRRect,
+        Colors,
+        Column,
+        CrossAxisAlignment,
+        EdgeInsets,
+        FontStyle,
+        FontWeight,
+        InkWell,
+        Key,
+        Padding,
+        Row,
+        SizedBox,
+        Spacer,
+        StatelessWidget,
+        Text,
+        TextOverflow,
+        TextStyle,
+        Widget;
 import 'package:mesa_news/app/modules/home/model/news_model.dart';
 import 'package:mesa_news/app/shared/widget/image_loadable.dart';
 import 'package:mesa_news/app/shared/widget/skeleton.dart';
@@ -53,7 +74,8 @@ class NewsItem extends StatelessWidget {
             Row(children: [
               const Spacer(),
               Text(data.publishedDateText,
-                  style: const TextStyle(color: Colors.black, fontSize: 13, fontStyle: FontStyle.italic, fontWeight: FontWeight.w400)),
+                  style: const TextStyle(
+                      color: Colors.black, fontSize: 13, fontStyle: FontStyle.italic, fontWeight: FontWeight.w400)),
             ]),
             const SizedBox(height: 12),
             Text(

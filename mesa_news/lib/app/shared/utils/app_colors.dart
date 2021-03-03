@@ -8,6 +8,9 @@ abstract class AppColors {
   static const GRAY = Color(0xFF666666);
   static const GRAY_LIGHT = Color(0xFFC4C4C4);
 
+  static const BACKGROUND_GRAY = Color(0xFFF2F2F2);
+  static const ARROW_COLOR = Color(0xFFC7C7CC);
+
   // TextField
   static const TEXT_FIELD_BACKGROUND = Color(0xFFF0F0F0);
 

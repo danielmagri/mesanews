@@ -29,6 +29,7 @@ class _DetailsPageState extends BaseModularState<DetailsPage, DetailsController>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           leading: const CloseButton(),
           leadingWidth: 45,
           title: Column(

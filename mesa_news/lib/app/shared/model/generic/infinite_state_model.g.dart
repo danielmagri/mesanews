@@ -15,6 +15,13 @@ mixin _$InfiniteState<T> on _InfiniteStateBase<T>, Store {
   int get length => (_$lengthComputed ??=
           Computed<int>(() => super.length, name: '_InfiniteStateBase.length'))
       .value;
+  Computed<bool> _$listIsEmptyComputed;
+
+  @override
+  bool get listIsEmpty =>
+      (_$listIsEmptyComputed ??= Computed<bool>(() => super.listIsEmpty,
+              name: '_InfiniteStateBase.listIsEmpty'))
+          .value;
 
   final _$isOverAtom = Atom(name: '_InfiniteStateBase.isOver');
 
@@ -84,7 +91,8 @@ mixin _$InfiniteState<T> on _InfiniteStateBase<T>, Store {
     return '''
 isOver: ${isOver},
 isLoading: ${isLoading},
-length: ${length}
+length: ${length},
+listIsEmpty: ${listIsEmpty}
     ''';
   }
 }

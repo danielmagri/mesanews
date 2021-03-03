@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mesa_news/app/modules/home/model/filter_model.dart';
 import 'package:mesa_news/app/modules/home/model/news_model.dart';
 import 'package:mesa_news/app/modules/home/widgets/highlights_item.dart';
 import 'package:mesa_news/app/modules/home/widgets/news_item.dart';
@@ -29,20 +30,33 @@ class _HomePageState extends BaseModularState<HomePage, HomeController> {
 
   void logout() {
     controller.logout();
-    Modular.to.pushReplacementNamed(Routes.LOGIN);
+    Modular.to.popAndPushNamed(Routes.LOGIN);
   }
 
   void goToDetails(NewsModel news) {
     Modular.to.pushNamed(Routes.DETAILS, arguments: news);
   }
 
+  void goToFilter() {
+    Modular.to.pushNamed(
+      Routes.FILTER,
+      arguments: controller.filter,
+    )..then((value) => value is FilterModel ? controller.setFilter(value) : null);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text("Mesa News", style: Theme.of(context).textTheme.headline6),
         centerTitle: true,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.filter_list),
+            tooltip: 'Filtro',
+            onPressed: goToFilter,
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Logout',
@@ -94,21 +108,23 @@ class _HomePageState extends BaseModularState<HomePage, HomeController> {
               child: Text("Últimas notícias",
                   style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700)),
             ),
-            Observer(builder: (_) {
-              return ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: controller.newsState.length,
-                itemBuilder: (context, index) => controller.newsState.widgetBuilder(
-                    index: index,
-                    shimmerItem: () => NewsItemShimmer(),
-                    item: (data) => NewsItem(
-                          data: data,
-                          onTap: () => goToDetails(data),
-                        )),
-              );
-            }),
+            Observer(
+              builder: (_) => controller.newsState.listIsEmpty
+                  ? Center(child: Text("Nenhuma notícia encontrada."))
+                  : ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.newsState.length,
+                      itemBuilder: (context, index) => controller.newsState.widgetBuilder(
+                          index: index,
+                          shimmerItem: () => NewsItemShimmer(),
+                          item: (data) => NewsItem(
+                                data: data,
+                                onTap: () => goToDetails(data),
+                              )),
+                    ),
+            ),
           ],
         ),
       ),

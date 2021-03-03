@@ -31,6 +31,7 @@ class _SignupPageState extends BaseModularState<SignupPage, SignupController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: const CloseButton(),
         title: Text("Cadastrar", style: Theme.of(context).textTheme.headline6),
         centerTitle: true,

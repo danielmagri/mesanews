@@ -39,6 +39,7 @@ class _EmailPageState extends BaseModularState<EmailPage, EmailController> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         leading: const CloseButton(),
         title: Text("Entrar com e-mail", style: Theme.of(context).textTheme.headline6),
         centerTitle: true,

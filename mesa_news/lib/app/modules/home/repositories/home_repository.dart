@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mesa_news/app/modules/home/model/body_news_model.dart';
+import 'package:mesa_news/app/modules/home/model/filter_model.dart';
 import 'package:mesa_news/app/modules/home/model/news_model.dart';
 import 'package:mesa_news/app/shared/constant/api/news_api.dart';
 import 'package:mesa_news/app/shared/dio/custom_dio.dart';
@@ -20,11 +21,11 @@ class HomeRepository extends Disposable {
         );
   }
 
-  Future<Result<BodyNewsModel>> news(int currentPage, int perPage, {String publishedAt}) {
+  Future<Result<BodyNewsModel>> news(int currentPage, int perPage, FilterModel filter) {
     return _client.get('${NewsApi.GET_NEWS}', queryParameters: {
       NewsApi.PARAM_NEWS_CURRENT_PAGE: currentPage,
       NewsApi.PARAM_NEWS_PER_PAGE: perPage,
-      if (publishedAt != null) NewsApi.PARAM_NEWS_PUBLISHED_AT: publishedAt,
+      if (filter.date != null) NewsApi.PARAM_NEWS_PUBLISHED_AT: filter.dateFormatted,
     }).result((json) => BodyNewsModel.fromJson(json));
   }
 

@@ -22,6 +22,7 @@ mixin _$DetailsController on _DetailsControllerBase, Store {
   @override
   String toString() {
     return '''
+
     ''';
   }
 }

@@ -46,8 +46,7 @@ abstract class _InfiniteStateBase<T> with Store {
         isLoading = false;
       }, (error) {
         isLoading = false;
-
-        checkHasOver();
+        isOver = true;
       });
     }
   }
@@ -64,6 +63,9 @@ abstract class _InfiniteStateBase<T> with Store {
 
     return length;
   }
+
+  @computed
+  bool get listIsEmpty => !isLoading && data.isEmpty;
 
   Widget widgetBuilder({int index, _ShimmerItemWidget shimmerItem, _ItemWidget<T> item}) {
     if (index >= data.length || data.isEmpty) {

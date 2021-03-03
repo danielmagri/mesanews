@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' show ScrollController;
+import 'package:mesa_news/app/modules/home/model/filter_model.dart';
 import 'package:mesa_news/app/modules/home/model/news_model.dart';
 import 'package:mesa_news/app/modules/home/repositories/home_repository.dart';
 import 'package:mesa_news/app/shared/dio/model/result.dart';
@@ -22,6 +23,8 @@ abstract class _HomeControllerBase extends Disposable with Store {
 
   ScrollController scrollController = ScrollController();
 
+  final FilterModel filter = FilterModel();
+
   final ShimmerState<List<NewsModel>> highlightsState = ShimmerState();
   final InfiniteState<NewsModel> newsState = InfiniteState(perPage: 10);
 
@@ -33,7 +36,7 @@ abstract class _HomeControllerBase extends Disposable with Store {
     });
 
     newsState.requestFunction((currentPage, perPage) async {
-      return (await _repository.news(currentPage, perPage)).result((data) {
+      return (await _repository.news(currentPage, perPage, filter)).result((data) {
         return Result.success(Tuple2(data.pagination?.totalItems ?? 0, data.data));
       }, (error) => Result.error(error));
     });
@@ -45,6 +48,12 @@ abstract class _HomeControllerBase extends Disposable with Store {
     (await _repository.highlights()).result(highlightsState.setData, highlightsState.setError);
 
     newsState.requestMoreItems();
+  }
+
+  void setFilter(FilterModel value) {
+    filter.date = value.date;
+    filter.onlyFavorites = value.onlyFavorites;
+    newsState.resetDataAndRequest();
   }
 
   void logout() {
