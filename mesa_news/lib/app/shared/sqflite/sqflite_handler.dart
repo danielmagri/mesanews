@@ -73,13 +73,16 @@ class SqfliteHandler {
       final Database db = await database;
 
       List<Map<String, dynamic>> list = dateFilter == null
-          ? await db.query('news', limit: perPage, offset: perPage * (currentPage - 1))
+          ? await db.query('news', limit: perPage, offset: perPage * (currentPage - 1), orderBy: "published_at DESC")
           : await db.query('news',
-              where: "published_at = ?", whereArgs: [dateFilter], limit: perPage, offset: perPage * (currentPage - 1));
+              where: "published_at = ?",
+              whereArgs: [dateFilter],
+              orderBy: "published_at DESC",
+              limit: perPage,
+              offset: perPage * (currentPage - 1));
       int count = dateFilter == null
           ? Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM news'))
-          : Sqflite.firstIntValue(
-              await db.rawQuery("SELECT COUNT(*) FROM news WHERE published_at = $dateFilter"));
+          : Sqflite.firstIntValue(await db.rawQuery("SELECT COUNT(*) FROM news WHERE published_at = $dateFilter"));
 
       var newsList = list.map((e) => NewsModel.fromJson(e)).toList();
 
