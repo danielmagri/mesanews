@@ -4,6 +4,7 @@ import 'package:mesa_news/app/modules/home/model/news_model.dart';
 import 'package:mesa_news/app/modules/home/repositories/home_repository.dart';
 import 'package:mesa_news/app/shared/dio/model/result.dart';
 import 'package:mesa_news/app/shared/model/generic/infinite_state_model.dart';
+import 'package:mesa_news/app/shared/model/generic/result_state_model.dart';
 import 'package:mesa_news/app/shared/model/generic/shimmer_state_model.dart';
 import 'package:mesa_news/app/shared/shared_preferences/get_storages.dart';
 import 'package:mobx/mobx.dart';
@@ -27,6 +28,7 @@ abstract class _HomeControllerBase extends Disposable with Store {
 
   final ShimmerState<List<NewsModel>> highlightsState = ShimmerState();
   final InfiniteState<NewsModel> newsState = InfiniteState(perPage: 10);
+  final ResultState<bool> favoriteState = ResultState();
 
   void start() {
     scrollController.addListener(() {
@@ -46,8 +48,32 @@ abstract class _HomeControllerBase extends Disposable with Store {
 
   void fetchData() async {
     (await _repository.highlights()).result(highlightsState.setData, highlightsState.setError);
-
     newsState.requestMoreItems();
+  }
+
+  void setFavorite(NewsModel news) async {
+    favoriteState.setLoading(true);
+    if (!news.isFavorited) {
+      (await _repository.addFavorite(news)).result((_) => _favoriteSuccess(news), (error) {
+        favoriteState.setError(error);
+      });
+    } else {
+      (await _repository.removeFavorite(news.title)).result((_) => _favoriteSuccess(news), (error) {
+        favoriteState.setError(error);
+      });
+    }
+  }
+
+  void _favoriteSuccess(NewsModel news) {
+    var value = !news.isFavorited;
+    if (filter.onlyFavorites) {
+      newsState.data?.removeWhere((e) => e.title == news.title);
+    } else {
+      newsState.data?.where((e) => e.title == news.title)?.forEach((e) => e.isFavorited = value);
+    }
+
+    highlightsState.data?.where((e) => e.title == news.title)?.forEach((e) => e.isFavorited = value);
+    favoriteState.setData(value);
   }
 
   void setFilter(FilterModel value) {

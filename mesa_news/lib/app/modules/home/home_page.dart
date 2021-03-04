@@ -8,6 +8,7 @@ import 'package:mesa_news/app/modules/home/widgets/highlights_item.dart';
 import 'package:mesa_news/app/modules/home/widgets/news_item.dart';
 import 'package:mesa_news/app/shared/base/base_modular_state.dart';
 import 'package:mesa_news/app/shared/constant/routes/routes.dart';
+import 'package:mesa_news/app/shared/utils/app_colors.dart';
 import 'package:mesa_news/app/shared/widget/skeleton.dart';
 import 'home_controller.dart';
 
@@ -25,12 +26,48 @@ class _HomePageState extends BaseModularState<HomePage, HomeController> {
   @override
   void initState() {
     controller.start();
+    disposers = [
+      controller.favoriteState.handleState(handleLoading, (value) {
+        showToast(value ? "Notícia favoritada!" : "Notícia desfavoritada");
+        setState(() {});
+      }, handleError),
+    ];
     super.initState();
   }
 
   void logout() {
-    controller.logout();
-    Modular.to.popAndPushNamed(Routes.LOGIN);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout', style: TextStyle(color: Colors.black)),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                const Text('Tem certeza que deseja sair?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Sim', style: TextStyle(color: AppColors.PRIMARY_COLOR)),
+              onPressed: () {
+                Navigator.of(context).pop();
+                controller.logout();
+                Modular.to.popAndPushNamed(Routes.LOGIN);
+              },
+            ),
+            TextButton(
+              child: const Text('Não', style: TextStyle(color: AppColors.PRIMARY_COLOR)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void goToDetails(NewsModel news) {
@@ -93,6 +130,7 @@ class _HomePageState extends BaseModularState<HomePage, HomeController> {
                         itemBuilder: (context, i) => HighlightsItem(
                           data: data[i],
                           onTap: () => goToDetails(data[i]),
+                          onFavoriteTap: () => controller.setFavorite(data[i]),
                         ),
                         options: CarouselOptions(
                           initialPage: 0,
@@ -111,7 +149,7 @@ class _HomePageState extends BaseModularState<HomePage, HomeController> {
             Observer(
               builder: (_) => controller.newsState.listIsEmpty
                   ? Center(child: Text("Nenhuma notícia encontrada."))
-                  : ListView.builder(
+                  : ListView.separated(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
@@ -120,9 +158,16 @@ class _HomePageState extends BaseModularState<HomePage, HomeController> {
                           index: index,
                           shimmerItem: () => NewsItemShimmer(),
                           item: (data) => NewsItem(
+                                key: ValueKey(data.title),
                                 data: data,
                                 onTap: () => goToDetails(data),
+                                onFavoriteTap: () => controller.setFavorite(data),
                               )),
+                      separatorBuilder: (BuildContext context, int index) => Divider(
+                        color: AppColors.DIVIDER_COLOR,
+                        indent: 8,
+                        endIndent: 8,
+                      ),
                     ),
             ),
           ],

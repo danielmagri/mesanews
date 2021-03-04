@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mesa_news/app/shared/base/base_modular_state.dart';
 import 'package:mesa_news/app/shared/constant/assets/images.dart';
 import 'package:mesa_news/app/shared/constant/routes/routes.dart';
+import 'package:mesa_news/app/shared/dio/model/failure.dart';
 import 'package:mesa_news/app/shared/enums/text_field_input_type.dart';
 import 'package:mesa_news/app/shared/utils/app_colors.dart';
 import 'package:mesa_news/app/shared/widget/custom_elevated_button.dart';
@@ -25,7 +26,12 @@ class _EmailPageState extends BaseModularState<EmailPage, EmailController> {
     disposers = [
       controller.signinState.handleState(handleLoading, (data) {
         Modular.to.pushNamedAndRemoveUntil(Routes.HOME, (_) => false);
-      }, handleError),
+      }, (error) {
+        if (error is DioFailure && error.error.response.statusCode == 401) {
+          showToast("Login incorreto", isError: true);
+        }
+        handleError(error);
+      }),
     ];
     super.initState();
   }

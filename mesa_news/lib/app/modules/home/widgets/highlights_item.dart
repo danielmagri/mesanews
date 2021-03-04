@@ -23,6 +23,7 @@ import 'package:flutter/material.dart'
         TextStyle,
         Widget;
 import 'package:mesa_news/app/modules/home/model/news_model.dart';
+import 'package:mesa_news/app/modules/home/widgets/favorite_button.dart';
 import 'package:mesa_news/app/shared/widget/image_loadable.dart';
 import 'package:mesa_news/app/shared/widget/skeleton.dart';
 
@@ -43,6 +44,12 @@ class HighlightsItemShimmer extends StatelessWidget {
               ContainerShimmer(width: double.maxFinite, height: 18),
               const SizedBox(height: 4),
               ContainerShimmer(width: 50, height: 18),
+              const Spacer(),
+              Row(children: [
+                FavoriteButton(isFavorited: true),
+                ContainerShimmer(width: 75, height: 15),
+              ]),
+              const Spacer(),
             ]),
           ),
         ),
@@ -55,8 +62,9 @@ class HighlightsItemShimmer extends StatelessWidget {
 class HighlightsItem extends StatelessWidget {
   final NewsModel data;
   final Function onTap;
+  final Function onFavoriteTap;
 
-  const HighlightsItem({Key key, this.data, this.onTap}) : super(key: key);
+  const HighlightsItem({Key key, this.data, this.onTap, this.onFavoriteTap}) : super(key: key);
 
   @override
   Widget build(_) {
@@ -81,6 +89,7 @@ class HighlightsItem extends StatelessWidget {
                 ),
                 const Spacer(),
                 Row(children: [
+                  FavoriteButton(isFavorited: data.isFavorited, onTap: onFavoriteTap),
                   Text(data.publishedDateText,
                       style: const TextStyle(
                           color: Colors.black, fontSize: 13, fontStyle: FontStyle.italic, fontWeight: FontWeight.w400)),

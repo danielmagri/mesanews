@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart' show CupertinoSwitch;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -87,6 +88,7 @@ class _FilterPageState extends ModularState<FilterPage, FilterController> {
           ListTile(
             title: const Text("Data", style: TextStyle(fontSize: 17, color: Colors.black)),
             visualDensity: VisualDensity.compact,
+            dense: true,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -101,10 +103,19 @@ class _FilterPageState extends ModularState<FilterPage, FilterController> {
             ),
             onTap: selectDate,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: const Divider(),
+          const Divider(indent: 16, color: AppColors.DIVIDER_COLOR),
+          ListTile(
+            title: const Text("Apenas favoritos", style: TextStyle(fontSize: 17, color: Colors.black)),
+            visualDensity: VisualDensity.compact,
+            dense: true,
+            trailing: Observer(
+              builder: (_) => CupertinoSwitch(
+                value: controller.onlyFavorites,
+                onChanged: controller.setOnlyFavorites,
+              ),
+            ),
           ),
+          const Divider(indent: 16, color: AppColors.DIVIDER_COLOR),
         ],
       ),
     );

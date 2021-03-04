@@ -21,6 +21,7 @@ import 'package:flutter/material.dart'
         TextStyle,
         Widget;
 import 'package:mesa_news/app/modules/home/model/news_model.dart';
+import 'package:mesa_news/app/modules/home/widgets/favorite_button.dart';
 import 'package:mesa_news/app/shared/widget/image_loadable.dart';
 import 'package:mesa_news/app/shared/widget/skeleton.dart';
 
@@ -34,7 +35,13 @@ class NewsItemShimmer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ContainerShimmer(width: double.maxFinite, height: 145),
-            const SizedBox(height: 12),
+            const SizedBox(height: 6),
+            Row(children: [
+              FavoriteButton(isFavorited: true),
+              const Spacer(),
+              ContainerShimmer(width: 100, height: 15),
+            ]),
+            const SizedBox(height: 6),
             ContainerShimmer(width: double.maxFinite, height: 18),
             const SizedBox(height: 4),
             ContainerShimmer(width: 100, height: 18),
@@ -54,8 +61,9 @@ class NewsItemShimmer extends StatelessWidget {
 class NewsItem extends StatelessWidget {
   final NewsModel data;
   final Function onTap;
+  final Function onFavoriteTap;
 
-  const NewsItem({Key key, this.data, this.onTap}) : super(key: key);
+  const NewsItem({Key key, this.data, this.onTap, this.onFavoriteTap}) : super(key: key);
 
   @override
   Widget build(_) {
@@ -70,14 +78,15 @@ class NewsItem extends StatelessWidget {
             ClipRRect(
                 borderRadius: BorderRadius.circular(3),
                 child: ImageLoadable(url: data.imageUrl, width: double.maxFinite, height: 145, boxFit: BoxFit.cover)),
-            const SizedBox(height: 12),
+            const SizedBox(height: 6),
             Row(children: [
+              FavoriteButton(isFavorited: data.isFavorited, onTap: onFavoriteTap),
               const Spacer(),
               Text(data.publishedDateText,
                   style: const TextStyle(
                       color: Colors.black, fontSize: 13, fontStyle: FontStyle.italic, fontWeight: FontWeight.w400)),
             ]),
-            const SizedBox(height: 12),
+            const SizedBox(height: 6),
             Text(
               data.title,
               maxLines: 2,

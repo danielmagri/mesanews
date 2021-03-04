@@ -11,12 +11,12 @@ abstract class BaseModularState<TWidget extends StatefulWidget, TBind> extends M
   bool _isLoading = false;
 
   @protected
-  void showToast(String message) {
+  void showToast(String message, {bool isError = false}) {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: AppColors.ACCENT_COLOR,
+        backgroundColor: isError ? Colors.red : AppColors.PRIMARY_COLOR,
         textColor: Colors.white,
         fontSize: 16.0);
   }
@@ -37,7 +37,7 @@ abstract class BaseModularState<TWidget extends StatefulWidget, TBind> extends M
   }
 
   Widget handleError(Failure error, {Widget child}) {
-    showToast(error.message);
+    showToast(error.message, isError: true);
     return child ?? const SizedBox();
   }
 

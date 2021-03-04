@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_repository.dart';
+part of 'sqflite_handler.dart';
 
 // **************************************************************************
 // InjectionGenerator
 // **************************************************************************
 
-final $HomeRepository = BindInject(
-  (i) => HomeRepository(i<CustomDio>(), i<SqfliteHandler>()),
+final $SqfliteHandler = BindInject(
+  (i) => SqfliteHandler(),
   singleton: true,
   lazy: true,
 );

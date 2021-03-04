@@ -55,9 +55,7 @@ abstract class _InfiniteStateBase<T> with Store {
   int get length {
     int length = data.length;
 
-    if (isLoading && data.isEmpty) {
-      length += 2;
-    } else if (!isOver || isLoading) {
+    if (!isOver) {
       length += 1;
     }
 
@@ -65,7 +63,7 @@ abstract class _InfiniteStateBase<T> with Store {
   }
 
   @computed
-  bool get listIsEmpty => !isLoading && data.isEmpty;
+  bool get listIsEmpty => !isLoading && data.isEmpty && isOver;
 
   Widget widgetBuilder({int index, _ShimmerItemWidget shimmerItem, _ItemWidget<T> item}) {
     if (index >= data.length || data.isEmpty) {
@@ -75,7 +73,6 @@ abstract class _InfiniteStateBase<T> with Store {
     }
   }
 
-  @action
   bool checkHasOver() {
     isOver = (currentPage * perPage >= totalItems);
     return isOver;

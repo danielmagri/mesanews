@@ -18,6 +18,8 @@ class NewsModel {
   final String url;
   final String imageUrl;
 
+  bool isFavorited = false;
+
   String get publishedDateText {
     try {
       var date = DateTime.parse(publishedAt);
@@ -30,10 +32,20 @@ class NewsModel {
       } else if (difference.inDays < 7) {
         return "${difference.inDays} dias atrás";
       } else {
-        return "${date.day.toString().padLeft(2,'0')}/${date.month.toString().padLeft(2,'0')}/${date.year.toString()}";
+        return "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString()}";
       }
     } catch (_) {
       return "erro";
+    }
+  }
+
+  String get dateFormatted {
+    try {
+      var date = DateTime.parse(publishedAt);
+
+      return "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+    } catch (_) {
+      return "";
     }
   }
 
@@ -43,18 +55,27 @@ class NewsModel {
         content: json['content'] ?? "",
         author: json['author'] ?? "",
         publishedAt: json['published_at'] ?? "",
-        highlight: json['highlight'] ?? false,
+        highlight: _mapHighlight(json['highlight']),
         url: json['url'] ?? "",
         imageUrl: json['image_url'] ?? "",
       );
+
+  static bool _mapHighlight(dynamic value) {
+    if (value == null) return false;
+    if (value is int) {
+      return value == 1;
+    } else {
+      return value;
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         "title": title,
         "description": description,
         "content": content,
         "author": author,
-        "published_at": publishedAt,
-        "highlight": highlight,
+        "published_at": dateFormatted,
+        "highlight": highlight ? 1 : 0,
         "url": url,
         "image_url": imageUrl,
       };

@@ -16,11 +16,15 @@ abstract class _FilterControllerBase with Store {
   @observable
   String dateText = "Todas";
 
+  @observable
+  bool onlyFavorites = false;
+
   @action
   void start(FilterModel value) {
     filter.date = value.date;
     filter.onlyFavorites = value.onlyFavorites;
     dateText = filter.dateBeautyFormatted;
+    onlyFavorites = value.onlyFavorites;
   }
 
   @action
@@ -30,5 +34,12 @@ abstract class _FilterControllerBase with Store {
       filterbuttonVisible = true;
       dateText = filter.dateBeautyFormatted;
     }
+  }
+
+  @action
+  void setOnlyFavorites(bool value) {
+    filterbuttonVisible = true;
+    onlyFavorites = value;
+    filter.onlyFavorites = value;
   }
 }

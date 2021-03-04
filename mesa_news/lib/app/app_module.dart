@@ -7,6 +7,7 @@ import 'package:mesa_news/app/modules/home/home_module.dart';
 import 'package:mesa_news/app/modules/login/login_module.dart';
 import 'package:mesa_news/app/shared/constant/routes/routes.dart';
 import 'package:mesa_news/app/shared/dio/custom_dio.dart';
+import 'package:mesa_news/app/shared/sqflite/sqflite_handler.dart';
 import 'package:mesa_news/app/shared/shared_preferences/get_storages.dart';
 
 import 'app_controller.dart';
@@ -19,6 +20,7 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
         $GetStorages,
         $CustomDio,
+        $SqfliteHandler,
         $AppController,
         $SplashController,
       ];

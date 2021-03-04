@@ -50,6 +50,21 @@ mixin _$FilterController on _FilterControllerBase, Store {
     });
   }
 
+  final _$onlyFavoritesAtom = Atom(name: '_FilterControllerBase.onlyFavorites');
+
+  @override
+  bool get onlyFavorites {
+    _$onlyFavoritesAtom.reportRead();
+    return super.onlyFavorites;
+  }
+
+  @override
+  set onlyFavorites(bool value) {
+    _$onlyFavoritesAtom.reportWrite(value, super.onlyFavorites, () {
+      super.onlyFavorites = value;
+    });
+  }
+
   final _$_FilterControllerBaseActionController =
       ActionController(name: '_FilterControllerBase');
 
@@ -76,10 +91,22 @@ mixin _$FilterController on _FilterControllerBase, Store {
   }
 
   @override
+  void setOnlyFavorites(bool value) {
+    final _$actionInfo = _$_FilterControllerBaseActionController.startAction(
+        name: '_FilterControllerBase.setOnlyFavorites');
+    try {
+      return super.setOnlyFavorites(value);
+    } finally {
+      _$_FilterControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 filterbuttonVisible: ${filterbuttonVisible},
-dateText: ${dateText}
+dateText: ${dateText},
+onlyFavorites: ${onlyFavorites}
     ''';
   }
 }

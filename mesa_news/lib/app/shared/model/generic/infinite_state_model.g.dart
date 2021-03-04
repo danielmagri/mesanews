@@ -65,17 +65,6 @@ mixin _$InfiniteState<T> on _InfiniteStateBase<T>, Store {
       ActionController(name: '_InfiniteStateBase');
 
   @override
-  bool checkHasOver() {
-    final _$actionInfo = _$_InfiniteStateBaseActionController.startAction(
-        name: '_InfiniteStateBase.checkHasOver');
-    try {
-      return super.checkHasOver();
-    } finally {
-      _$_InfiniteStateBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void resetDataAndRequest() {
     final _$actionInfo = _$_InfiniteStateBaseActionController.startAction(
         name: '_InfiniteStateBase.resetDataAndRequest');
